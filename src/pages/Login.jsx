@@ -21,6 +21,9 @@ export default class Login extends Component {
     });
   }
 
+  // Olhei este repositório para elaborar a função abaixo:
+  // https://github.com/tryber/sd-014-b-project-trybetunes/pull/47/files
+
   async loginSubmit() {
     const { name } = this.state;
     this.setState({ loading: true });
