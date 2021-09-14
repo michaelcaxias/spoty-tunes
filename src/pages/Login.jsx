@@ -8,9 +8,11 @@ export default class Login extends Component {
     super(props);
     this.state = {
       name: '',
-      savedName: false,
+      loading: false,
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.loginSubmit = this.loginSubmit.bind(this);
   }
 
   handleChange({ target: { value } }) {
@@ -19,21 +21,21 @@ export default class Login extends Component {
     });
   }
 
-  loginSubmit = () => {
-    createUser(this.state);
-    this.setState({
-      savedName: true,
-    });
+  async loginSubmit() {
+    const { name } = this.state;
+    this.setState({ loading: true });
+    await createUser({ name });
+    this.setState({ redirect: true });
   }
 
   render() {
     const THREE = 3;
-    const { state: { name, savedName }, handleChange, loginSubmit } = this;
-    if (savedName) {
+    const { state: { name, loading, redirect }, handleChange, loginSubmit } = this;
+    if (loading) {
       return (
         <>
           <Loading />
-          <Redirect to="/search" />
+          { redirect ? <Redirect to="/search" /> : '' }
         </>
       );
     }
