@@ -28,7 +28,6 @@ export default class Header extends Component {
     const { loading, username } = this.state;
     return (
       <header data-testid="header-component">
-        <h1>Header</h1>
         <h2 data-testid="header-user-name">
           { loading
             ? <Loading /> : `Olá, ${username}!` }
