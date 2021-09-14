@@ -27,10 +27,13 @@ export default class Header extends Component {
   render() {
     const { loading, username } = this.state;
     return (
-      <>
-        <h1 data-testid="header-component">Header</h1>
-        <h2 data-testid="header-user-name">{ loading ? <Loading /> : username }</h2>
-      </>
+      <header data-testid="header-component">
+        <h1>Header</h1>
+        <h2 data-testid="header-user-name">
+          { loading
+            ? <Loading /> : `Olá, ${username}!` }
+        </h2>
+      </header>
     );
   }
 }
