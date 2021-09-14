@@ -8,11 +8,13 @@ import Favorites from './pages/Favorites';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
+import Header from './components/Header';
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
+        <Header />
         <Switch>
           <Route path="/profile/edit" component={ ProfileEdit } />
           <Route path="/album/:id" component={ Album } />
