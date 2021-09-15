@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AlbumsCard from '../components/AlbumsCard';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
-import Loading from './Loading';
+import Loading from '../components/Loading';
 
 export default class Search extends Component {
   constructor(props) {
