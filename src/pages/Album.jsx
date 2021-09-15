@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
 import Header from '../components/Header';
+import MusicCard from '../components/MusicCard';
 
 export default class Album extends Component {
   constructor() {
@@ -16,7 +18,7 @@ export default class Album extends Component {
   }
 
   async fetchUrl() {
-    const { params: { id } } = this.props.match;
+    const { match: { params: { id } } } = this.props;
     const musics = await getMusics(id);
     this.setState({
       arrayOfMusics: [...musics],
@@ -27,7 +29,7 @@ export default class Album extends Component {
   }
 
   render() {
-    const { artistName, albumImage, albumName } = this.state;
+    const { arrayOfMusics, artistName, albumImage, albumName } = this.state;
     return (
       <>
         <Header />
@@ -38,8 +40,18 @@ export default class Album extends Component {
             <h2 data-testid="artist-name">{ artistName }</h2>
             <h3 data-testid="album-name">{ albumName }</h3>
           </div>
+          { arrayOfMusics.slice(1)
+            .map((music, index) => <MusicCard key={ index } musics={ music } />) }
         </div>
       </>
     );
   }
 }
+
+Album.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
