@@ -73,12 +73,14 @@ export default class Search extends Component {
         </form>
       </div>
     );
+
     return (
       <>
         <Header />
         { loading ? <Loading /> : searchLabel }
         { enableArtist ? resultArtist : '' }
-        { enableArtist ? <AlbumsCard albumsInfo={ arrayOfAlbums } /> : '' }
+        { enableArtist
+          ? <AlbumsCard albumsInfo={ arrayOfAlbums } /> : '' }
       </>
     );
   }
