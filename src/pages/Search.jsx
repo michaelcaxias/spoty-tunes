@@ -26,7 +26,6 @@ export default class Search extends Component {
     const { value } = this.state;
     this.setState({ loading: true });
     const response = await searchAlbumsAPI(value);
-    console.log(response);
     this.setState({
       artistName: value,
       value: '',
