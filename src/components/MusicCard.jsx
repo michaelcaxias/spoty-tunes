@@ -17,14 +17,12 @@ export default class MusicCard extends Component {
     this.setState({ loading: true });
     if (checked) {
       await addSong(id);
-      console.log('adiciona');
       this.setState({
         loading: false,
         checked: true,
       });
     } else {
       await removeSong(id);
-      console.log('remove');
       this.setState({
         loading: false,
         checked: false,
