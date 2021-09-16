@@ -31,7 +31,7 @@ export default class Header extends Component {
       <header data-testid="header-component">
         <h1 data-testid="header-user-name">
           { loading
-            ? <Loading /> : `Olá, ${username}!` }
+            ? <Loading /> : username }
         </h1>
         <Link data-testid="link-to-search" to="/search">Search</Link>
         <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
@@ -40,3 +40,5 @@ export default class Header extends Component {
     );
   }
 }
+
+// Leticia Cardoso me ajudou na linha 33 a 34 para fazer o req11 passar!
