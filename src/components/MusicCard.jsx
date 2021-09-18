@@ -61,6 +61,7 @@ export default class MusicCard extends Component {
           <code>audio</code>
         </audio>
         <label htmlFor={ trackId } data-testid={ `checkbox-music-${trackId}` }>
+          Favorita
           <input
             type="checkbox"
             id={ trackId }
