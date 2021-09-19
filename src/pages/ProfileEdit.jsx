@@ -28,8 +28,7 @@ export default class ProfileEdit extends Component {
     this.setState({ [id]: value });
   }
 
-  async handleClick(event) {
-    event.preventDefault();
+  async handleClick() {
     this.setState({ loading: true });
     const { name, email, image, description } = this.state;
     const newUser = { name, email, image, description };
@@ -89,7 +88,7 @@ export default class ProfileEdit extends Component {
         <label htmlFor="email">
           E-mail:
           <input
-            type="email"
+            type="text"
             data-testid="edit-input-email"
             value={ email }
             id="email"
@@ -109,7 +108,7 @@ export default class ProfileEdit extends Component {
           />
         </label>
         <button
-          type="submit"
+          type="button"
           data-testid="edit-button-save"
           onClick={ handleClick }
           disabled={ !validateInput }

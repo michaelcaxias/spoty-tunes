@@ -29,10 +29,10 @@ export default class Header extends Component {
     const { loading, username } = this.state;
     return (
       <header data-testid="header-component">
-        <h1 data-testid="header-user-name">
+        <span data-testid="header-user-name">
           { loading
             ? <Loading /> : username }
-        </h1>
+        </span>
         <Link data-testid="link-to-search" to="/search">Search</Link>
         <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
         <Link data-testid="link-to-profile" to="/profile">Profile</Link>
