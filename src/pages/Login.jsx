@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { createUser } from '../services/userAPI';
@@ -26,23 +27,22 @@ export default class Login extends Component {
 
   async loginSubmit() {
     const { name } = this.state;
+    const { history } = this.props;
     this.setState({ loading: true });
     await createUser({ name });
-    this.setState({ redirect: true });
+    history.push('/search');
   }
 
   render() {
     const THREE = 3;
     const { state: { name, loading, redirect }, handleChange, loginSubmit } = this;
-    if (loading) {
-      return (
-        <>
-          <Loading />
-          { redirect ? <Redirect to="/search" /> : '' }
-        </>
-      );
-    }
-    return (
+    const loadingAndRedirect = (
+      <>
+        <Loading />
+        { redirect ? <Redirect to="/search" /> : '' }
+      </>
+    );
+    const formLogin = (
       <div data-testid="page-login">
         <h1>Login</h1>
         <form>
@@ -63,5 +63,12 @@ export default class Login extends Component {
         </form>
       </div>
     );
+    return loading ? loadingAndRedirect : formLogin;
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
