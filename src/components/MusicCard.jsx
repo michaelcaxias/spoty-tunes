@@ -4,8 +4,8 @@ import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongs
 import Loading from './Loading';
 
 export default class MusicCard extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       loading: false,
       checked: false,
@@ -19,16 +19,16 @@ export default class MusicCard extends Component {
   }
 
   async handleChange({ target: { checked } }) {
-    const { musics } = this.props;
+    const { music } = this.props;
     this.setState({ loading: true });
     if (checked) {
-      await addSong(musics);
+      await addSong(music);
       this.setState({
         loading: false,
         checked: true,
       });
     } else {
-      await removeSong(musics);
+      await removeSong(music);
       this.setState({
         loading: false,
         checked: false,
@@ -38,7 +38,7 @@ export default class MusicCard extends Component {
 
   async fetchFavoriteSongs() {
     // Ajuda do Rodolfo Braga
-    const { musics: { trackId } } = this.props;
+    const { music: { trackId } } = this.props;
     const getSongs = await getFavoriteSongs();
     const songId = getSongs.some((song) => song.trackId === trackId);
     if (songId) {
@@ -48,7 +48,7 @@ export default class MusicCard extends Component {
 
   render() {
     const { props:
-    { musics:
+    { music:
     { previewUrl, trackName, trackId } },
     state: { loading, checked },
     handleChange } = this;
@@ -78,7 +78,7 @@ export default class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
-  musics: PropTypes.shape({
+  music: PropTypes.shape({
     previewUrl: PropTypes.string.isRequired,
     trackName: PropTypes.string.isRequired,
     trackId: PropTypes.number.isRequired,
