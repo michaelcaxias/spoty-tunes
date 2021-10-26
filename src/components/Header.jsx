@@ -7,7 +7,7 @@ export default class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      name: '',
       loading: true,
     };
   }
@@ -17,21 +17,20 @@ export default class Header extends Component {
   }
 
   async getUsername() {
-    const userObject = await getUser();
-    const { name } = userObject;
+    const { name } = await getUser();
     this.setState({
-      username: name,
+      name,
       loading: false,
     });
   }
 
   render() {
-    const { loading, username } = this.state;
+    const { loading, name } = this.state;
     return (
       <header data-testid="header-component">
         <span data-testid="header-user-name">
           { loading
-            ? <Loading /> : username }
+            ? <Loading /> : name }
         </span>
         <Link data-testid="link-to-search" to="/search">Search</Link>
         <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
