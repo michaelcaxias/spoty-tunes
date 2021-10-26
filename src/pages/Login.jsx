@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
 
@@ -10,7 +9,6 @@ export default class Login extends Component {
     this.state = {
       name: '',
       loading: false,
-      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.loginSubmit = this.loginSubmit.bind(this);
@@ -35,13 +33,7 @@ export default class Login extends Component {
 
   render() {
     const THREE = 3;
-    const { state: { name, loading, redirect }, handleChange, loginSubmit } = this;
-    const loadingAndRedirect = (
-      <>
-        <Loading />
-        { redirect ? <Redirect to="/search" /> : '' }
-      </>
-    );
+    const { state: { name, loading }, handleChange, loginSubmit } = this;
     const formLogin = (
       <div data-testid="page-login">
         <h1>Login</h1>
@@ -63,7 +55,7 @@ export default class Login extends Component {
         </form>
       </div>
     );
-    return loading ? loadingAndRedirect : formLogin;
+    return loading ? <Loading /> : formLogin;
   }
 }
 
