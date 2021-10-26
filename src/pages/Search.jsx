@@ -25,13 +25,13 @@ export default class Search extends Component {
   async clearAndFetch() {
     const { value } = this.state;
     this.setState({ loading: true });
-    const response = await searchAlbumsAPI(value);
+    const albums = await searchAlbumsAPI(value);
     this.setState({
       artistName: value,
       value: '',
       loading: false,
       enableArtist: true,
-      arrayOfAlbums: [...response],
+      arrayOfAlbums: albums,
     });
   }
 
@@ -46,9 +46,7 @@ export default class Search extends Component {
 
     const resultArtist = (
       <p>
-        Resultado de álbuns de:
-        {' '}
-        { artistName }
+        {`Resultado de álbuns de: ${artistName}`}
       </p>
     );
 
