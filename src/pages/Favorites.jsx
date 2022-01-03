@@ -23,7 +23,7 @@ export default function Favorites() {
       <div data-testid="page-favorites">
         <h1>Favorites</h1>
         { arrayOfMusics
-          .map((music, index) => <MusicCard key={ index } musics={ music } />) }
+          .map((music, index) => <MusicCard key={ index } music={ music } />) }
       </div>
     </>
   );
