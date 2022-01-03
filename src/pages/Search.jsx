@@ -1,84 +1,60 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import AlbumsCard from '../components/AlbumsCard';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
 
-export default class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      artistName: '',
-      value: '',
-      loading: false,
-      enableArtist: false,
-      arrayOfAlbums: [],
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.clearAndFetch = this.clearAndFetch.bind(this);
-  }
+export default function Search() {
+  const [artistName, setArtistName] = useState('');
+  const [value, setValue] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [enableArtist, setEnableArtist] = useState(false);
+  const [arrayOfAlbums, setArrayOfAlbums] = useState([]);
 
-  handleChange({ target: { value } }) {
-    this.setState({ value });
-  }
-
-  async clearAndFetch() {
-    const { value } = this.state;
-    this.setState({ loading: true });
+  const clearAndFetch = async () => {
+    setLoading(true);
     const albums = await searchAlbumsAPI(value);
-    this.setState({
-      artistName: value,
-      value: '',
-      loading: false,
-      enableArtist: true,
-      arrayOfAlbums: albums,
-    });
-  }
+    setArtistName(value);
+    setValue('');
+    setLoading(false);
+    setEnableArtist(true);
+    setArrayOfAlbums(albums);
+  };
 
-  render() {
-    const { state: {
-      value,
-      loading,
-      enableArtist,
-      artistName,
-      arrayOfAlbums,
-    }, handleChange, clearAndFetch } = this;
+  const resultArtist = (
+    <p>
+      {`Resultado de álbuns de: ${artistName}`}
+    </p>
+  );
 
-    const resultArtist = (
-      <p>
-        {`Resultado de álbuns de: ${artistName}`}
-      </p>
-    );
+  const searchLabel = (
+    <div data-testid="page-search">
+      <form>
+        <input
+          type="text"
+          value={ value }
+          data-testid="search-artist-input"
+          onChange={ ({ target }) => setValue(target.value) }
+        />
+        <button
+          type="button"
+          onClick={ clearAndFetch }
+          data-testid="search-artist-button"
+          disabled={ value.length < 2 }
+        >
+          Pesquisar
+        </button>
+      </form>
+    </div>
+  );
 
-    const searchLabel = (
-      <div data-testid="page-search">
-        <form>
-          <input
-            type="text"
-            value={ value }
-            data-testid="search-artist-input"
-            onChange={ handleChange }
-          />
-          <button
-            type="button"
-            onClick={ clearAndFetch }
-            data-testid="search-artist-button"
-            disabled={ value.length < 2 }
-          >
-            Pesquisar
-          </button>
-        </form>
-      </div>
-    );
-
-    return (
-      <>
-        <Header />
-        { loading ? <Loading /> : searchLabel }
-        { enableArtist ? resultArtist : '' }
-        { enableArtist
-          ? <AlbumsCard albumsInfo={ arrayOfAlbums } /> : '' }
-      </>
-    );
-  }
+  return (
+    <>
+      <Header />
+      { loading ? <Loading /> : searchLabel }
+      { enableArtist ? resultArtist : '' }
+      { enableArtist
+        ? <AlbumsCard albumsInfo={ arrayOfAlbums } /> : '' }
+    </>
+  );
 }
